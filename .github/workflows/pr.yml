@@ -23,8 +23,9 @@ jobs:
           persist-credentials: false
 
       - name: buildAndTest
-        uses: devperimental/composite-action-library/dotnet-build-and-test
+        uses: dotnet-build-and-test
         with:
+          repository: devperimental/composite-action-library
           nuget-username: ${{ env.nuget-username }}
           src-dir: ${{ env.src-dir }}
           build-environment: ${{ env.build-environment }}
