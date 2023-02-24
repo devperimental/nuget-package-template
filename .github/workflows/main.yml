@@ -23,6 +23,15 @@ jobs:
         with:
           persist-credentials: false
     
+      - name: buildAndTest
+        uses: devperimental/composite-action-library/dotnet-build-and-test@v1
+        with:
+          nuget-username: ${{ env.nuget-username }}
+          src-dir: ${{ env.src-dir }}
+          build-environment: ${{ env.build-environment }}
+          coverage-threshold: ${{ env.coverage-threshold }}
+          repo-organisation: ${{ env.repo-organisation }}
+          team-pat: ${{ secrets.TEAM_PAT}}
   pushPackages:
     name: Push Packages
     needs: dotnetBuild
