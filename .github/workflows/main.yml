@@ -4,12 +4,12 @@ on:
     branches:
       - 'main'
 env:
-  nuget-username: devperimental
+  nuget-username: chrisxpr
   src-dir: ./src/code
   build-environment: dev
   coverage-threshold: 90
   repo-organisation: architected
-  team-pat: ${{ secrets.TEAM_PAT}}
+  team-pat: ${{ secrets.NUGET_PAT}}
 concurrency: main-${{ github.ref}}
 jobs:
   dotnetBuild:
@@ -31,7 +31,7 @@ jobs:
           build-environment: ${{ env.build-environment }}
           coverage-threshold: ${{ env.coverage-threshold }}
           repo-organisation: ${{ env.repo-organisation }}
-          team-pat: ${{ secrets.TEAM_PAT}}
+          team-pat: ${{ env.team-pat }}
   pushPackages:
     name: Push Packages
     needs: dotnetBuild
@@ -44,3 +44,9 @@ jobs:
         with:
           persist-credentials: false
 
+      - uses: devperimental/composite-action-library/nuget-package@v1
+        with:
+          nuget-username: ${{ env.nuget-username }}
+          src-dir: ${{ env.src-dir }}
+          repo-organisation: ${{ env.repo-organisation }}
+          team-pat: ${{ env.team-pat }}
