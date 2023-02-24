@@ -23,16 +23,6 @@ jobs:
         with:
           persist-credentials: false
     
-      - name: buildAndTest
-        uses: dotnet-build-and-test
-        with:
-          repository: devperimental/composite-action-library
-          nuget-username: ${{ env.nuget-username }}
-          src-dir: ${{ env.src-dir }}
-          build-environment: ${{ env.build-environment }}
-          coverage-threshold: ${{ env.coverage-threshold }}
-          repo-organisation: ${{ env.repo-organisation }}
-          team-pat: ${{ secrets.TEAM_PAT}}
   pushPackages:
     name: Push Packages
     needs: dotnetBuild
@@ -45,10 +35,3 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: nuget-package
-        with:
-          repository: devperimental/composite-action-library
-          nuget-username: ${{ env.nuget-username }}
-          src-dir: ${{ env.src-dir }}
-          repo-organisation: ${{ env.repo-organisation }}
-          team-pat: ${{ secrets.TEAM_PAT}}
